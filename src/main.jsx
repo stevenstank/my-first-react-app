@@ -1,12 +1,30 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
-import Greet from './react.jsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router";
+import App from "./App";
+import Profile from "./Profile";
+import DefaultProfile from "./DefaultProfile";
+import Spinach from "./Spinach";
+import Popeye from "./Popeye";
 
-createRoot(document.getElementById('root')).render(
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+  },
+  {
+    path: "profile",
+    element: <Profile />,
+    children: [
+      { index: true, element: <DefaultProfile /> },
+      { path: "spinach", element: <Spinach /> },
+      { path: "popeye", element: <Popeye /> },
+    ],
+  },
+]);
+
+createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <App />
-    <Greet />
+    <RouterProvider router={router} />
   </StrictMode>,
-)
+);
